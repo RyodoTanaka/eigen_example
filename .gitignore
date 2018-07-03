@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+# Manualy
+bin/
+build/
+core
