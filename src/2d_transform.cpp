@@ -52,12 +52,32 @@ void Example2(void)
   cout << homogeneous.translation() << endl;
 }
 
+void Example3(void)
+{
+  cout << "====3. 2次元ベクトルにおける内積と外積=====" << endl;
+  Vector2d vec1(2,3);
+  Vector2d vec2(4,5);
+  Matrix2d m;
+  m << vec1, vec2;
+  auto dot = vec1.dot(vec2);
+  auto cross = m.determinant();
+
+  cout << "vec1" << endl;
+  cout << vec1.transpose() << endl;
+  cout << "vec2" << endl;
+  cout << vec2.transpose() << endl;
+  cout << "dot product" << endl;
+  cout << dot << endl;
+  cout << "cross product" << endl;
+  cout << cross << endl;
+}
+
 int main(int argv, char** argc)
 {
   
   Example1();
   Example2();
-  
+  Example3();
   
   return 0;
 }
