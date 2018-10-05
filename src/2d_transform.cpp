@@ -72,12 +72,107 @@ void Example3(void)
   cout << cross << endl;
 }
 
+void Example4(void)
+{
+  Matrix<double,4,4> m;// = MatrixXd::Ones(4,4);
+
+  m <<
+    1,2,3,4,
+    5,6,7,8,
+    9,10,11,12,
+    13,14,15,16;
+  
+  cout << m << endl;
+
+  Vector2d v1 = m.block(0,3,2,1);
+  Vector2d v2 = m.block(2,0,2,1);
+
+  cout << typeid(v1).name() << endl;
+  
+  cout << v1.transpose() << endl;
+  cout << v2.transpose() << endl;
+  cout << (v1 + v2).transpose() << endl;
+  cout << v1.lpNorm<2>() << endl;
+
+  auto v = v1 + v2;
+
+  cout << ((v1+v2)/2.).transpose() << endl;
+  cout << ((v1+v2)/2.).lpNorm<1>() << endl;
+}
+
+class cltst{
+public:
+  void b(const double& a)
+  { b_ = a; };
+
+  void c(const vector<double>& c)
+  { c_ = c; };
+  
+  double b(void) const
+  { return b_; };
+
+  vector<double> c(void) const
+  { return c_; };
+
+  vector<double>& c(void)
+  { return c_; };
+  
+private:
+  double b_;
+  vector<double> c_;
+};
+
+void test(void)
+{
+  cltst t;
+  double a = 3;
+  vector<double> b{4,5,6};
+
+  t.b(a);
+  t.c(b);
+  cout << t.b() << endl;
+  for(size_t i=0; i<t.c().size(); i++)
+    cout << t.c()[i] << ", ";
+  cout << endl;
+  
+  a = 4;
+  b = {7,8,9};
+  cout << t.b() << endl;
+  for(size_t i=0; i<t.c().size(); i++)
+    cout << t.c()[i] << ", ";
+  cout << endl;
+
+  vector<double>& u = t.c();
+  for(size_t i=0; i<u.size(); i++)
+    cout << u[i] << ", ";
+  cout << endl;
+  u = {7,8,9};
+  for(size_t i=0; i<t.c().size(); i++)
+    cout << t.c()[i] << ", ";
+  cout << endl;
+}
+
+void func(const vector<double>& a)
+{
+  for(auto i=a.begin(); i!=a.end(); i++)
+    cout << *i << ", ";
+  cout << endl;
+}
+
+void test2(void)
+{
+  func(vector<double>{2,3,4});
+}
+
 int main(int argv, char** argc)
 {
   
-  Example1();
-  Example2();
-  Example3();
+  // Example1();
+  // Example2();
+  // Example3();
+  Example4();
+  // test();
+  test2();
   
   return 0;
 }
