@@ -31,3 +31,25 @@ target_link_libraries(2d_transform
   python2.7
 )
 
+add_executable(orthogonal_matrix
+  src/orthogonal_matrix.cpp
+  )
+
+target_link_libraries(orthogonal_matrix
+  ${Boost_FILESYSTEM_LIBRARY}
+  ${Boost_SYSTEM_LIBRARY}
+  ${Boost_PROGRAM_OPTIONS_LIBRARY}
+  python2.7
+)
+
+add_executable(qr_decomposition
+  src/qr_decomposition.cpp
+  )
+
+target_link_libraries(qr_decomposition
+  ${Boost_FILESYSTEM_LIBRARY}
+  ${Boost_SYSTEM_LIBRARY}
+  ${Boost_PROGRAM_OPTIONS_LIBRARY}
+  python2.7
+)
+
