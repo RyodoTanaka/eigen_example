@@ -53,4 +53,3 @@ target_link_libraries(qr_decomposition
   ${Boost_PROGRAM_OPTIONS_LIBRARY}
   python2.7
 )
-
