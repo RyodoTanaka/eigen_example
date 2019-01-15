@@ -44,6 +44,7 @@ target_link_libraries(orthogonal_matrix
 
 add_executable(qr_decomposition
   src/qr_decomposition.cpp
+  src/gramschmidt.hpp
   )
 
 target_link_libraries(qr_decomposition
