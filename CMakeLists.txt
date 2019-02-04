@@ -19,37 +19,30 @@ include_directories("/usr/include/python2.7")
 # Original Libraries
 
 
-add_executable(2d_transform
-  src/2d_transform.cpp
+# Compile file
+set(SRC
+  2d_transform
+  orthogonal_matrix
+  qr_decomposition
   )
 
-
-target_link_libraries(2d_transform 
-  ${Boost_FILESYSTEM_LIBRARY}
-  ${Boost_SYSTEM_LIBRARY}
-  ${Boost_PROGRAM_OPTIONS_LIBRARY}
-  python2.7
-)
-
-add_executable(orthogonal_matrix
-  src/orthogonal_matrix.cpp
-  )
-
-target_link_libraries(orthogonal_matrix
-  ${Boost_FILESYSTEM_LIBRARY}
-  ${Boost_SYSTEM_LIBRARY}
-  ${Boost_PROGRAM_OPTIONS_LIBRARY}
-  python2.7
-)
-
-add_executable(qr_decomposition
-  src/qr_decomposition.cpp
-  src/gramschmidt.hpp
-  )
-
-target_link_libraries(qr_decomposition
-  ${Boost_FILESYSTEM_LIBRARY}
-  ${Boost_SYSTEM_LIBRARY}
-  ${Boost_PROGRAM_OPTIONS_LIBRARY}
-  python2.7
-)
+foreach(src ${SRC})
+  if("$src" MATCHES "qr_decomposition")
+    add_executable(${src}
+      src/${src}.cpp
+      src/gramschmidt.hpp
+      )
+  else()
+      add_executable(${src}
+      src/${src}.cpp
+      )
+  endif()
+  
+  target_link_libraries(${src}
+    ${Boost_FILESYSTEM_LIBRARY}
+    ${Boost_SYSTEM_LIBRARY}
+    ${Boost_PROGRAM_OPTIONS_LIBRARY}
+    python2.7
+    )
+  
+endforeach(src)
