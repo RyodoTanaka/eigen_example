@@ -31,18 +31,12 @@ int main(void)
     cout << a << endl;
     
     // Make Cross
-    VectorXd result;
-    VectorXd result2;
-
-    result = v_hat * a;
-    result2 = -v_hat * a;
-
     cout << "== v_hat * a ==" << endl;
-    cout << result << endl;
+    cout << v_hat * a << endl;
     cout << "== v x a ==" << endl;
     cout << v.cross(a) << endl;
     cout << "== -v_hat * a ==" << endl;
-    cout << result2 << endl;
+    cout << -v_hat * a << endl;
     cout << "== a x v ==" << endl;
     cout << a.cross(v) << endl;
     
