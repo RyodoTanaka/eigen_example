@@ -24,6 +24,7 @@ set(SRC
   2d_transform
   orthogonal_matrix
   qr_decomposition
+  skew_symmetric_matrix
   )
 
 foreach(src ${SRC})
