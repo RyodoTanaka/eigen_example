@@ -94,8 +94,6 @@ void Example4(void)
   cout << (v1 + v2).transpose() << endl;
   cout << v1.lpNorm<2>() << endl;
 
-  auto v = v1 + v2;
-
   cout << ((v1+v2)/2.).transpose() << endl;
   cout << ((v1+v2)/2.).lpNorm<1>() << endl;
 }
