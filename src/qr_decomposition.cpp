@@ -63,19 +63,6 @@ int main(void)
     cout << B*N << endl;
     cout << " So, the matrix N is the Null space of matrix B. " << endl;
 
-
-
-    cout << "== Gramschmidt method =="<< endl;
-    auto Q_hat = Q.block(0,0,B.cols(),B.rows());
-    auto R_hat = R.block(0,0,B.rows(),B.rows());
-
-    cout << "=== R_hat === " << endl;
-    cout << R_hat << endl;
-    cout << "=== det(R_hat) ===" << endl;
-    cout << R_hat.determinant() << endl;
-    cout << "=== R_hat inverse ==" << endl;
-    cout << R_hat.inverse() << endl;
-
     // Do QR decomposition
     // by Classical Gram Schmidt
     // we get reduced Q (Q_hat)
@@ -85,10 +72,6 @@ int main(void)
     cout << Q_g << endl;
     cout << "==== Q ====" << endl;
     cout << Q << endl;
-    cout << "==== Q_hat ====" << endl;
-    cout << Q_hat << endl;
-    cout << "==== Q_g * R_hat ====" << endl;
-    cout << Q_g * R_hat << endl;
     cout << "=== B ===" << endl;
     cout << B << endl;
     
