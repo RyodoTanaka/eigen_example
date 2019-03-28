@@ -17,4 +17,6 @@ int main(void)
     cout << "Here is the vector b:\n" << b << endl;
     VectorXf x = A.colPivHouseholderQr().solve(b);
     cout << "The solution is:\n" << x << endl;
+
+    return 0;
 }
