@@ -102,8 +102,9 @@ void test3(const MatrixXd& A)
     MatrixXd B = A.transpose();
 
     ColPivHouseholderQR<MatrixXd> qr(B);
-    MatrixXd R = qr.matrixR();
-    MatrixXd Q = qr.matrixQR();
+    MatrixXd Q = qr.matrixQ();
+    MatrixXd R = qr.matrixR().triangularView<Upper>();
+    MatrixXd P = qr.colsPermutation();
 
     cout << "=== B ===" << endl;
     cout << B << endl;
@@ -111,34 +112,87 @@ void test3(const MatrixXd& A)
     cout << Q << endl;
     cout << "=== R ===" << endl;
     cout << R << endl;
+    cout << "=== P ===" << endl;
+    cout << P << endl;
 
-    cout << "=== Q*R ===" << endl;
-    cout << Q*R << endl;
+    cout << "=== Q*R*P^T ===" << endl;
+    cout << Q*R*P.transpose() << endl;
 
-    // MatrixXd R1 = R.block(0,0,R.rows(),R.rows());
-    // MatrixXd R2 = R.block(0,R.rows(),R.rows(),R.cols()-R.rows());
-  
-    // cout << "== R1 ==" << endl;
-    // cout << R1 << endl;
-    // cout << "== R2 ==" << endl;
-    // cout << R2 << endl;
-
-
-    // cout << "== N is following matrix ==" << endl;
-    // cout << "=====================" << endl;
-    // cout << "== | -R1^(-1)*R2 | ==" << endl;
-    // cout << "== |      I      | ==" << endl;
-    // cout << "=====================" << endl;
-    // MatrixXd N = MatrixXd::Zero(B.cols(),B.cols()-B.rows());
-    // N.block(0,0,B.rows(),B.cols()-B.rows()) = -R1.inverse()*R2;
-    // N.block(B.rows(),0,B.cols()-B.rows(),B.cols()-B.rows()) = MatrixXd::Identity(B.cols()-B.rows(),B.cols()-B.rows());
-    // cout << N << endl;
-    // cout << "==============================" << endl;
-    // cout << "== N is the Null space of B ==" << endl;
-    // cout << "==============================" << endl;
-    // cout << "== B*N ==" << endl;
-    // cout << B*N << endl;
+    R *= P.transpose();
     
+    MatrixXd R1 = R.block(0,0,R.rows(),R.rows());
+    MatrixXd R2 = R.block(0,R.rows(),R.rows(),R.cols()-R.rows());
+  
+    cout << "== R1 ==" << endl;
+    cout << R1 << endl;
+    cout << "== R2 ==" << endl;
+    cout << R2 << endl;
+
+    cout << "== N is following matrix ==" << endl;
+    cout << "=====================" << endl;
+    cout << "== | -R1^(-1)*R2 | ==" << endl;
+    cout << "== |      I      | ==" << endl;
+    cout << "=====================" << endl;
+    MatrixXd N = MatrixXd::Zero(B.cols(),B.cols()-B.rows());
+    N.block(0,0,B.rows(),B.cols()-B.rows()) = -R1.inverse()*R2;
+    N.block(B.rows(),0,B.cols()-B.rows(),B.cols()-B.rows()) = MatrixXd::Identity(B.cols()-B.rows(),B.cols()-B.rows());
+    cout << N << endl;
+    cout << "==============================" << endl;
+    cout << "== N is the Null space of B ==" << endl;
+    cout << "==============================" << endl;
+    cout << "== B*N ==" << endl;
+    cout << B*N << endl;
+    
+}
+
+void test4(const MatrixXd& A)
+{
+    cout << "========================================" << endl;
+    cout << "== Full pivot QR decomposition method ==" << endl;
+    cout << "========================================" << endl;
+    MatrixXd B = A.transpose();
+
+    FullPivHouseholderQR<MatrixXd> qr(B);
+    MatrixXd Q = qr.matrixQ();
+    MatrixXd R = qr.matrixQR().triangularView<Upper>();
+    MatrixXd P = qr.colsPermutation();
+
+    cout << "=== B ===" << endl;
+    cout << B << endl;
+    cout << "=== Q ===" << endl;
+    cout << Q << endl;
+    cout << "=== R ===" << endl;
+    cout << R << endl;
+    cout << "=== P ===" << endl;
+    cout << P << endl;
+
+    cout << "=== Q*R*P^T ===" << endl;
+    cout << Q*R*P.transpose() << endl;
+
+    R *= P.transpose();
+    
+    MatrixXd R1 = R.block(0,0,R.rows(),R.rows());
+    MatrixXd R2 = R.block(0,R.rows(),R.rows(),R.cols()-R.rows());
+  
+    cout << "== R1 ==" << endl;
+    cout << R1 << endl;
+    cout << "== R2 ==" << endl;
+    cout << R2 << endl;
+
+    cout << "== N is following matrix ==" << endl;
+    cout << "=====================" << endl;
+    cout << "== | -R1^(-1)*R2 | ==" << endl;
+    cout << "== |      I      | ==" << endl;
+    cout << "=====================" << endl;
+    MatrixXd N = MatrixXd::Zero(B.cols(),B.cols()-B.rows());
+    N.block(0,0,B.rows(),B.cols()-B.rows()) = -R1.inverse()*R2;
+    N.block(B.rows(),0,B.cols()-B.rows(),B.cols()-B.rows()) = MatrixXd::Identity(B.cols()-B.rows(),B.cols()-B.rows());
+    cout << N << endl;
+    cout << "==============================" << endl;
+    cout << "== N is the Null space of B ==" << endl;
+    cout << "==============================" << endl;
+    cout << "== B*N ==" << endl;
+    cout << B*N << endl;
 }
 
 int main(void)
@@ -156,6 +210,7 @@ int main(void)
     test1(A);
     test2(A);
     test3(A);
+    test4(A);
     
     return 0;
 }
