@@ -26,6 +26,7 @@ set(SRC
   qr_decomposition
   skew_symmetric_matrix
   solve_formula
+  diagonalization
   )
 
 foreach(src ${SRC})
