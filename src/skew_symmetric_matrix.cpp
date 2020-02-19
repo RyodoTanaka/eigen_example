@@ -2,6 +2,8 @@
 #include <Eigen/Core>
 #include <Eigen/Dense>
 
+#include "utils.hpp"
+
 using namespace std;
 using namespace Eigen;
 
@@ -15,11 +17,7 @@ int main(void)
     cout << v << endl;
     
     Matrix3d v_hat;
-    v_hat <<
-        0, -6, 5,
-        6, 0, -8,
-        -5, 8, 0;
-
+    Vector::wedge<double>(v_hat,v);
     cout << "== The skew symmetric matrix ==" << endl;
     cout << v_hat << endl;
 
