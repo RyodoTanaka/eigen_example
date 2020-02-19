@@ -21,12 +21,13 @@ include_directories("/usr/include/python2.7")
 
 # Compile file
 set(SRC
-  2d_transform
+  # 2d_transform
   orthogonal_matrix
   qr_decomposition
   skew_symmetric_matrix
   solve_formula
   diagonalization
+  test
   )
 
 foreach(src ${SRC})
