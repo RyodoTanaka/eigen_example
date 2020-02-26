@@ -28,7 +28,7 @@ set(SRC
   solve_formula
   diagonalization
   test
-  psuedo_matrix_qr
+  psuedo_inverse_qr
   )
 
 foreach(src ${SRC})
