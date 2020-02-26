@@ -22,6 +22,7 @@ void func1(void) {
 }
 
 void func2(void) {
+  using namespace std;
   MatrixXd A = MatrixXd::Random(5, 8);
   VectorXd b = VectorXd::Random(5);
   VectorXd b0 = b; //save b because we are going to write over during computations  // You should have already done something like this.
@@ -33,17 +34,17 @@ void func2(void) {
 
   MatrixXd R_upper = R.topRows(rank);
   auto RT = R_upper.transpose().template triangularView<Lower>();
-  VectorXd b = P.transpose() ;
+  MatrixXd PT = P.transpose();
+  RT.solveInPlace(PT);
+  cout << "A * (Q*R^(-T)*P^T)" << endl;
+  cout << A*(Q.leftCols(rank)*PT) << endl;
 
-  b = qr.colsPermutation().transpose()* b;
-  R.solveInPlace(b);
-  VectorXd x = Q.leftCols(5) * b;  // just checking the result
-  std::cout << "x = " << x.transpose() << std::endl;
-  std::cout << "||A*x-b0|| = " << (A * x - b0).norm() << std::endl;  // for comparison, the solve of CompleteOrthogonalDecomposition does a pseudo-inverse
   MatrixXd pinvA = A.completeOrthogonalDecomposition().pseudoInverse();
-  VectorXd x0 = pinvA * b0;  std::cout << "x0 = " << x0.transpose() << std::endl;
-  std::cout << "||A*x0-b0|| = " << (A * x0 - b0).norm() << std::endl;
-  std::cout << "||x - x0|| = " << (x0 - x).norm() << std::endl;
+  VectorXd x0 = pinvA * b0;
+  cout << "Psuedo Inverse A : " << endl;
+  cout << pinvA << endl;
+  cout << "(Q*R^(-T)*P^T) : " << endl;
+  cout << Q.leftCols(rank)*PT << endl;
 }
 
 int main()
