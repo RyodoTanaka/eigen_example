@@ -50,6 +50,28 @@ int main(void) {
 
   cout << c.transpose() << endl;
   cout << m << endl;
-  
+
+  Eigen::VectorXd hoge = Eigen::VectorXd::Random(3);
+  Eigen::VectorXd huga = Eigen::VectorXd::Random(3);
+
+  cout << "before normalized()" << endl;
+  cout << "hoge : " << hoge.transpose() << endl;
+  cout << "huga : " << huga.transpose() << endl;
+  cout << "after normalized()" << endl;
+  hoge.normalized();
+  huga.normalized();
+  cout << "hoge : " << hoge.transpose() << endl;
+  cout << "hoge.norm() : " << hoge.norm() << endl;
+  cout << "huga : " << huga.transpose() << endl;
+  cout << "huga.norm() : " << huga.norm() << endl;
+  hoge.normalize();
+  huga.normalize();
+  Eigen::VectorXd hoge_n = hoge;
+  Eigen::VectorXd huga_n = huga;
+  cout << "normalize()" << endl;
+  cout << "hoge_n : " << hoge_n.transpose() << endl;
+  cout << "hoge_n.norm() : " << hoge_n.norm() << endl;
+  cout << "huga_n : " << huga_n.transpose() << endl;
+  cout << "huga_n.norm() : " << huga_n.norm() << endl;
   return 0;
 }
